@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The servers has one endpoint that serves N amount of posts based on querystring parameters.
+The server has one endpoint that serves N amount of posts based on querystring parameters.
 
 When the server is started, it fetches 5000 items from `https://jsonplaceholder.typicode.com/photos`. Then it serves them in chunks according to the request parameters.
 
