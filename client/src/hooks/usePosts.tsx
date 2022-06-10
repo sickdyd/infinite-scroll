@@ -9,19 +9,28 @@ export interface Post {
 }
 
 export default function usePosts({ page, perPage }: { page: number; perPage: number }) {
+  const [error, setError] = useState<any>(null)
+  const [loading, setLoading] = useState<boolean>(true)
   const [posts, setPosts] = useState<Post[]>([])
+  const [toggleRefetch, setToggleRefetch] = useState<boolean>(false)
+
+  const refetch = () => setToggleRefetch((prev) => !prev)
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch(`http://localhost:3001/posts?page=${page}&perPage=${perPage}`).then(
-        (response) => response.json()
-      )
+      setLoading(true)
+      setError(null)
 
-      setPosts(data)
+      const data = await fetch(`http://localhost:3001/posts?page=${page}&perPage=${perPage}`)
+        .then((response) => response.json())
+        .catch((error) => setError(error))
+        .finally(() => setLoading(false))
+
+      setPosts(data || [])
     }
 
     fetchData()
-  }, [page, perPage])
+  }, [page, perPage, toggleRefetch])
 
-  return posts
+  return { loading, error, posts, refetch }
 }
