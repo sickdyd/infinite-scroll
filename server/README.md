@@ -20,9 +20,9 @@ http://localhost:3001/posts
 
 ## Querystring parameters
 
-```js
-page; // which page you need to fetch
-perPage; // how many posts per page
+```
+page // which page you need to fetch
+perPage // how many posts per page
 ```
 
 ## Request example
